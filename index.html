@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Envíos de Alimentos con Confianza Total</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0e11;--glass:rgba(255,255,255,.055);--bd:rgba(255,255,255,.1);--tx:#f6f1e9;--mut:#b9b2a6;--gold:#f2b866;--gold2:#e8925a;--em:#2fd197;--em2:#0b9f6b}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font:500 19px/1.45 Nunito,system-ui,sans-serif;padding-bottom:190px;min-height:100vh;
+background-image:radial-gradient(520px 340px at 90% -40px,rgba(255,138,61,.28),transparent),radial-gradient(480px 380px at -10% 18%,rgba(25,200,138,.16),transparent)}
+.w{max-width:620px;margin:auto;padding:0 16px}
+.hero{padding:34px 0 10px}
+.badge{display:inline-block;background:var(--glass);border:1px solid var(--bd);border-radius:99px;padding:7px 14px;font-size:16px;color:var(--gold);font-weight:800}
+h1{font:800 36px/1.1 Fraunces,Georgia,serif;margin:16px 0 12px;letter-spacing:-.5px;background:linear-gradient(120deg,#fff 30%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.sub{color:var(--mut);font-size:18px}
+.step{display:flex;align-items:center;gap:12px;margin:34px 0 14px}
+.step i{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1b1206;font:800 20px Fraunces,serif;display:grid;place-items:center;font-style:normal;flex:none}
+.step h2{font:800 25px/1.15 Fraunces,Georgia,serif}
+.locs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.loc{background:var(--glass);border:1.5px solid var(--bd);color:var(--tx);border-radius:18px;padding:16px 10px;font:700 18px Nunito,sans-serif;cursor:pointer;min-height:76px;transition:.15s}
+.loc.on::before{content:"✓ ";color:var(--em)}
+.loc.on{background:linear-gradient(135deg,rgba(25,200,138,.28),rgba(25,200,138,.1));border-color:var(--em);transform:scale(1.02)}
+.note{margin-top:12px;background:rgba(255,179,71,.1);border:1px dashed rgba(255,179,71,.5);border-radius:16px;padding:12px 14px;font-size:17px}
+.sec{font:800 20px Fraunces,serif;color:var(--gold);margin:22px 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--glass);border:1px solid var(--bd);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.card.big{grid-column:1/-1;border-color:rgba(242,184,102,.55)}
+.ph{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#2a2c33,#1b1c21);display:grid;place-items:center;overflow:hidden}
+.big .ph{aspect-ratio:16/8}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ini{font:800 64px Fraunces,serif;color:var(--gold);opacity:.75}
+.tag{position:absolute;top:10px;left:10px;z-index:1;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1b1206;font:800 15px Nunito,sans-serif;padding:5px 12px;border-radius:99px}
+.info{padding:12px;display:flex;flex-direction:column;gap:2px;flex:1}
+.nm{font-weight:800;font-size:20px;line-height:1.2}
+.dt{color:var(--mut);font-size:16px}
+.it{list-style:none;padding:0;margin:6px 0 2px;font-size:17px}
+.it li::before{content:"✓ ";color:var(--em);font-weight:800}
+.pr{font:800 24px Fraunces,serif;color:var(--gold);margin:4px 0 8px}
+.fin{margin:40px 0 0;padding:20px 18px;border:1px solid var(--bd);border-radius:22px;background:var(--glass);color:var(--mut);font-size:17px}
+.fin h3{font:800 21px Fraunces,serif;color:var(--gold);margin-bottom:8px}
+.fin p+p{margin-top:8px}
+.pay{font-size:15px;color:var(--em);font-weight:800;margin:-4px 0 8px}
+.add{margin-top:auto;border:0;border-radius:14px;padding:14px;font:800 19px Nunito,sans-serif;color:#03150e;background:linear-gradient(135deg,var(--em),#7be8c0);cursor:pointer}
+.st{margin-top:auto;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.35);border-radius:14px;padding:4px}
+.st button{width:50px;height:50px;border:0;border-radius:11px;font:800 28px Nunito,sans-serif;cursor:pointer;color:#fff}
+.st .m{background:#8a3535}.st .p{background:var(--em2)}
+.st b{font-size:24px}
+.empty{grid-column:1/-1;text-align:center;padding:34px 16px;background:var(--glass);border:1px dashed var(--bd);border-radius:22px;color:var(--mut)}
+label{display:block;margin:16px 0 6px;color:var(--mut);font-weight:700;font-size:17px}
+input,select,textarea{width:100%;padding:15px;border-radius:14px;border:1.5px solid var(--bd);background:rgba(255,255,255,.06);color:var(--tx);font:600 19px Nunito,sans-serif}
+textarea{resize:vertical;min-height:90px}
+select option{color:#111}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+#bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:5}
+.bx{max-width:560px;margin:auto;background:rgba(20,21,26,.94);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:10px 10px 10px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,.55)}
+.tl{flex:1;line-height:1.15}
+#cnt{font-size:15px;color:var(--mut)}
+.tl b{font:800 26px Fraunces,serif;color:var(--gold)}
+#msg{flex-basis:100%;order:-1;color:#ff9d94;text-align:center;font-size:16px;font-weight:700}
+#wa{border:0;border-radius:14px;padding:14px 20px;font:800 17px Nunito,sans-serif;color:#03150e;background:linear-gradient(135deg,var(--em),#7be8c0);cursor:pointer}
+#cb{position:fixed;top:10px;right:10px;z-index:6;background:rgba(20,21,26,.82);color:var(--gold);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:8px 16px;font:800 15px Nunito,sans-serif;cursor:pointer;backdrop-filter:blur(8px)}
+#cb[hidden]{display:none}
+#toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:#fff;color:#111;padding:12px 18px;border-radius:14px;font:800 16px Nunito,sans-serif;z-index:40;opacity:0;pointer-events:none;transition:.2s;max-width:90%;text-align:center}
+#toast.on{opacity:1}
+#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:20;overflow:auto;padding:14px}
+#ov.on{display:block}
+.sheet{max-width:620px;margin:auto;background:#17181d;border:1px solid var(--bd);border-radius:24px;padding:16px 16px 24px}
+.sh{display:flex;justify-content:space-between;align-items:center}
+.sh h2{font:800 26px Fraunces,serif}
+.x{background:var(--glass);color:var(--tx);border:0;border-radius:12px;width:46px;height:46px;font-size:26px;cursor:pointer}
+.box{border:1px solid var(--bd);border-radius:18px;padding:14px;margin-top:14px;background:rgba(255,255,255,.03)}
+.box h3{font:800 20px Nunito,sans-serif;color:var(--gold)}
+.box input,.box select,.box textarea{padding:11px;font-size:17px;margin-top:6px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{width:100%;margin-top:10px;border:0;border-radius:14px;padding:14px;font:800 18px Nunito,sans-serif;cursor:pointer;color:#03150e;background:linear-gradient(135deg,var(--gold),var(--gold2))}
+.btn.red{background:#8a3535;color:#fff}
+.btn.ghost{background:var(--glass);color:var(--tx)}
+.small{font-size:15px;color:var(--mut);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="hero">
+<span class="badge">Pago contra entrega</span>
+<h1 id="ttl">Envíos de Alimentos con Confianza Total</h1>
+<p class="sub">Pago contra entrega. Aceptamos transferencias desde EE. UU., España, Uruguay, Perú y más.</p>
+</div>
+
+<div class="step"><i>1</i><h2>¿Dónde quieres enviar el combo?</h2></div>
+<div class="locs" id="locs"></div>
+<div class="note">El domicilio se cobra aparte en efectivo al momento de entregar, según la zona.</div>
+
+<div class="step"><i>2</i><h2>Escoge tus productos</h2></div>
+<div id="shop"></div>
+
+<div class="fin"><h3>Así funciona tu pedido</h3><p>Cuando toques "Contactar por WhatsApp", tu pedido se envía a nuestro WhatsApp y allí lo coordinamos contigo.</p><p>El pago se realiza después de que tu pedido esté en tu casa. El domicilio se cobra aparte en efectivo, según la zona.</p></div>
+
+</div>
+
+<div id="bar"><div class="bx"><div id="msg" role="alert"></div><div class="tl"><span id="cnt">0 productos</span><br><b id="tot">$0.00</b></div><button id="wa">Contactar por WhatsApp</button></div></div>
+<button id="cb" hidden>Admin</button>
+<div id="toast" role="status"></div>
+<div id="ov"><div class="sheet" id="sheet"></div></div>
+
+<script id="app">
+const SEED=null;/*END*/
+const PHONE="5356611531",LOCS=["San Diego de Los Baños","Entronque de San Diego","Paso Quemado","Paso Real de San Diego","Los Palacios","Loma de Candelaria"];
+const $=id=>document.getElementById(id);
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2800)}
+window.alert=toast;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>"$"+n.toFixed(2);
+const cupf=n=>Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+" CUP";
+const fm=p=>p.pay==="usd"?money(p.price):cupf(p.price);
+function load(k,d){try{const v=localStorage.getItem("envcu2_"+k);return v?JSON.parse(v):d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem("envcu2_"+k,JSON.stringify(v))}catch(e){toast("No se pudo guardar. Usa una foto más pequeña o un enlace.")}}
+let prods=load("prods",null),bg=load("bg",null),pin=load("pin","3818"),cart={},loc="",owner=load("owner",false),taps=0,tt;
+if(prods===null)prods=SEED?SEED.prods:[];
+if(bg===null)bg=SEED?SEED.bg:"";
+prods=prods.map(p=>({...p,kind:p.kind||(p.combo?"c":"p"),pay:p.pay||"usd"}));
+function applyBg(){const b=document.body.style;if(bg){b.backgroundImage=`linear-gradient(rgba(13,14,17,.78),rgba(13,14,17,.9)),url("${bg.replace(/"/g,"%22")}")`;b.backgroundSize="cover";b.backgroundPosition="center";b.backgroundAttachment="fixed"}else{b.backgroundImage="";b.backgroundSize="";b.backgroundAttachment=""}}
+
+/* LOCALIDADES */
+function drawLocs(){$("locs").innerHTML=LOCS.map(l=>`<button class="loc ${l===loc?"on":""}" data-l="${esc(l)}">${esc(l)}</button>`).join("")}
+$("locs").onclick=e=>{const b=e.target.closest("[data-l]");if(b){loc=b.dataset.l;drawLocs()}};
+
+/* TIENDA */
+function card(p){
+const q=cart[p.id]||0,big=p.kind!=="p",im=p.img?`<img src="${esc(p.img)}" alt="" onerror="this.remove()">`:`<span class="ini">${esc(p.name.charAt(0))}</span>`;
+const lst=(p.items||"").split("\n").map(x=>x.trim()).filter(Boolean);
+const ctl=q?`<div class="st"><button class="m" data-m="${p.id}" aria-label="Quitar">−</button><b>${q}</b><button class="p" data-a="${p.id}" aria-label="Agregar">+</button></div>`:`<button class="add" data-a="${p.id}">+ Agregar</button>`;
+return `<div class="card ${big?"big":""}"><div class="ph">${p.kind==="a"?'<span class="tag">Oferta</span>':""}${im}</div><div class="info"><div class="nm">${esc(p.name)}</div>${p.detail?`<div class="dt">${esc(p.detail)}</div>`:""}${lst.length?`<ul class="it">${lst.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}<div class="pr">${fm(p)}</div>${p.pay!=="usd"?`<div class="pay">${p.pay==="cupt"?"Pago por transferencia":"Pago en efectivo"}</div>`:""}${ctl}</div></div>`}
+function drawShop(){
+const g=k=>prods.filter(p=>p.pay==="usd"&&p.kind===k);let h="";
+if(!prods.length)h=`<div class="grid"><div class="empty"><p>Estamos preparando los productos.<br>Vuelve en unos minutos.</p></div></div>`;
+[["a","Oferta especial"],["c","Combos listos"],["p","Productos sueltos"]].forEach(([k,t])=>{if(g(k).length)h+=`<div class="sec">${t}</div><div class="grid">${g(k).map(card).join("")}</div>`});
+const cu=prods.filter(p=>p.pay!=="usd");if(cu.length)h+=`<div class="sec">Pesos cubanos (CUP)</div><p class="dt" style="margin:-4px 2px 10px">Estos productos se pagan en pesos cubanos, por transferencia o en efectivo, como indica cada uno.</p><div class="grid">${cu.map(card).join("")}</div>`;
+$("shop").innerHTML=h;total()}
+$("shop").onclick=e=>{const b=e.target.closest("button");if(!b)return;const id=b.dataset.a||b.dataset.m;cart[id]=Math.max(0,(cart[id]||0)+(b.dataset.a?1:-1));if(!cart[id])delete cart[id];drawShop()};
+const items=()=>prods.filter(p=>cart[p.id]).map(p=>({...p,q:cart[p.id]}));
+function sums(){const it=items();let usd=0,cup=0;it.forEach(p=>{if(p.pay==="usd")usd+=p.price*p.q;else cup+=p.price*p.q});return{it,usd,cup}}
+function total(){const{it,usd,cup}=sums(),n=it.reduce((s,p)=>s+p.q,0);$("tot").textContent=cup?(usd?money(usd)+" + "+cupf(cup):cupf(cup)):money(usd);$("tot").style.fontSize=cup&&usd?"19px":"";$("cnt").textContent=n+(n===1?" producto":" productos")}
+
+/* WHATSAPP: abre la app; si no se puede, abre la web (sin páginas de error) */
+function openWA(txt){const enc=encodeURIComponent(txt),web="https://wa.me/"+PHONE+"?text="+enc,ua=navigator.userAgent,wv=/; wv\)|FBAN|FBAV|Instagram/.test(ua);
+if(/Android/.test(ua)&&!wv){location.href="intent://send/?phone="+PHONE+"&text="+enc+"#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url="+encodeURIComponent(web)+";end";return}
+let left=false;const h=()=>{if(document.hidden)left=true};document.addEventListener("visibilitychange",h);window.addEventListener("pagehide",h);
+const fr=document.createElement("iframe");fr.style.display="none";fr.src="whatsapp://send?phone="+PHONE+"&text="+enc;document.body.appendChild(fr);
+setTimeout(()=>{fr.remove();document.removeEventListener("visibilitychange",h);if(!left)location.href=web},1500)}
+$("wa").onclick=()=>{
+const{it,usd,cup}=sums();
+const err=!loc?"Primero elige dónde enviar el combo.":!it.length?"Agrega al menos un producto.":"";
+$("msg").textContent=err;if(err)return;
+const pl=p=>p.pay==="cupt"?" (transferencia)":p.pay==="cupe"?" (efectivo)":"";
+openWA(`*NUEVO PEDIDO*\n\nLocalidad: ${loc}\n\nProductos:\n${it.map(p=>`• ${p.q} x ${p.name}${p.detail?" ("+p.detail+")":""} = ${p.pay==="usd"?money(p.price*p.q):cupf(p.price*p.q)}${pl(p)}`).join("\n")}\n\n${usd?`*TOTAL USD: ${money(usd)}*\n`:""}${cup?`*TOTAL CUP: ${cupf(cup)}*\n`:""}(Domicilio aparte, en efectivo al entregar)`)};
+
+/* ACCESO ADMIN: tocar 5 veces el título */
+function showCb(){$("cb").hidden=!owner}
+function openAdm(){$("ov").classList.add("on");drawAdm()}
+function unlock(){$("ov").classList.add("on");$("sheet").innerHTML=`<div class="sh"><h2>Clave</h2><button class="x" data-c="1" aria-label="Cerrar">×</button></div><div class="box"><input id="pk" type="password" inputmode="numeric" autocomplete="off" placeholder="Escribe la clave"><button class="btn" data-ok="1">Entrar</button><p class="small" id="pe"></p></div>`;setTimeout(()=>$("pk").focus(),150)}
+function tryPin(){if($("pk").value.trim()!==pin){$("pe").textContent="Clave incorrecta";return}owner=true;save("owner",true);showCb();openAdm()}
+$("sheet").onkeydown=e=>{if(e.key==="Enter"&&e.target.id==="pk")tryPin()};
+$("cb").onclick=openAdm;
+$("ttl").onclick=()=>{taps++;clearTimeout(tt);tt=setTimeout(()=>taps=0,3000);if(taps>=5){taps=0;unlock()}};
+if(location.hash==="#admin")setTimeout(unlock,300);
+const close=()=>{$("ov").classList.remove("on");drawShop()};
+
+/* PUBLICAR: genera una copia de la página con tus productos y fotos adentro */
+function pageHtml(){const c=document.documentElement.cloneNode(true);
+["#shop","#locs","#sheet","#msg"].forEach(q=>c.querySelector(q).innerHTML="");
+c.querySelector("#ov").className="";c.querySelector("#toast").className="";c.querySelector("#cb").setAttribute("hidden","");c.querySelector("body").removeAttribute("style");
+const sc=c.querySelector("#app"),j=JSON.stringify({prods,bg}).replace(/</g,"\\u003c");
+sc.textContent=sc.textContent.replace(/const SEED=[\s\S]*?;\/\*END\*\//,()=>"const SEED="+j+";/*END*/");
+return "<!DOCTYPE html>\n"+c.outerHTML}
+function dl(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([pageHtml()],{type:"text/html"}));a.download="index.html";document.body.appendChild(a);a.click();a.remove();toast("Descargando index.html")}
+function cp(){const h=pageHtml(),fb=()=>{const t=document.createElement("textarea");t.value=h;document.body.appendChild(t);t.select();try{document.execCommand("copy");toast("Código copiado")}catch(e){toast("No se pudo copiar")}t.remove()};
+navigator.clipboard?navigator.clipboard.writeText(h).then(()=>toast("Código copiado"),fb):fb()}
+
+/* PANEL ADMIN */
+const PS='<option value="usd">Se paga en dólares (USD)</option><option value="cupt">Pesos cubanos por transferencia</option><option value="cupe">Pesos cubanos en efectivo</option>';
+const KS='<option value="p">Producto suelto</option><option value="c">Combo (varias cosas)</option><option value="a">Anuncio (una comida destacada)</option>';
+function drawAdm(){
+$("sheet").innerHTML=`<div class="sh"><h2>Mis productos</h2><button class="x" data-c="1" aria-label="Cerrar">×</button></div>
+<div class="box"><h3>Agregar a la tienda</h3>
+<select id="nt">${KS}</select>
+<select id="npay">${PS}</select>
+<input id="nn" placeholder="Nombre (ej. Combo Familiar, Pollo)">
+<input id="nd" placeholder="Libras o cantidad (ej. 5 lb)">
+<textarea id="nl" placeholder="Qué incluye, una cosa por línea&#10;4 bolsas de arroz&#10;4 bolsas de frijoles&#10;10 libras de cerdo"></textarea>
+<input id="np" type="number" step="0.01" min="0" placeholder="Precio (ej. 50)">
+<input id="ni" placeholder="Enlace de la foto (opcional)">
+<input id="nf" type="file" accept="image/*">
+<button class="btn" data-add="1">Agregar a la tienda</button>
+<p class="small">Si eliges pesos cubanos, el producto sale en su propia sección con la forma de pago. Anuncio: sale arriba con la etiqueta Oferta. Combo: sale con su lista de lo que incluye.</p></div>`+
+(prods.length?`<h3 style="margin:20px 4px 0;color:#b9b2a6;font-size:17px">Ya agregados (${prods.length})</h3>`:"")+
+prods.map((p,i)=>`<div class="box"><h3>${esc(p.name)}</h3>
+<select data-f="kind" data-i="${i}">${KS.replace('value="'+p.kind+'"','value="'+p.kind+'" selected')}</select>
+<select data-f="pay" data-i="${i}">${PS.replace('value="'+p.pay+'"','value="'+p.pay+'" selected')}</select>
+<input value="${esc(p.name)}" data-f="name" data-i="${i}" aria-label="Nombre">
+<input value="${esc(p.detail||"")}" data-f="detail" data-i="${i}" placeholder="Libras o cantidad">
+<textarea data-f="items" data-i="${i}" placeholder="Qué incluye, una cosa por línea">${esc(p.items||"")}</textarea>
+<input type="number" step="0.01" min="0" value="${p.price}" data-f="price" data-i="${i}" aria-label="Precio USD">
+<input value="${p.img&&!p.img.startsWith("data:")?esc(p.img):""}" data-f="img" data-i="${i}" placeholder="Enlace de la foto">
+<input type="file" accept="image/*" data-up="${i}">
+<button class="btn red" data-del="${i}">Borrar</button></div>`).join("")+
+`<div class="box"><h3>Publicar la página</h3><p class="small">Cuando termines de poner productos y fotos, descarga la página y súbela a tu sitio gratis. Cada vez que cambies algo, hazlo de nuevo.</p><button class="btn" data-dl="1">Descargar página lista (index.html)</button><button class="btn ghost" data-cp="1">Copiar el código</button></div>
+<div class="box"><h3>Imagen de fondo</h3><input id="bgu" placeholder="Enlace de la imagen"><input id="bgf" type="file" accept="image/*"><button class="btn" data-bgset="1">Poner imagen de fondo</button><button class="btn ghost" data-bgdel="1">Quitar imagen de fondo</button></div>
+<div class="box"><h3>Clave</h3><input id="npin" placeholder="Nueva clave (mínimo 4)"><button class="btn ghost" data-pin="1">Cambiar clave</button></div>
+<div class="box"><h3>Este teléfono</h3><button class="btn ghost" data-out="1">Ocultar el botón Admin</button><p class="small">Para volver a verlo, toca 5 veces el título de la página.</p></div>`}
+function shrink(file,cb,mx=360,q=.78){const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas"),s=Math.min(1,mx/Math.max(im.width,im.height));c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",q))};im.src=r.result};r.readAsDataURL(file)}
+$("sheet").onchange=e=>{const t=e.target,d=t.dataset;
+if(d.f){let v=t.value.trim();if(d.f==="price")v=Math.max(0,parseFloat(v)||0);prods[d.i][d.f]=v;save("prods",prods);if(d.f==="kind")drawAdm()}
+else if(d.up&&t.files[0])shrink(t.files[0],u=>{prods[d.up].img=u;save("prods",prods);drawAdm()},640,.75)};
+$("sheet").onclick=e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
+if(d.ok){tryPin();return}
+if(d.c){close();return}
+if(d.dl){dl();return}
+if(d.cp){cp();return}
+if(d.add){const n=$("nn").value.trim(),p=parseFloat($("np").value);if(!n||isNaN(p)){toast("Escribe el nombre y el precio");return}
+const mk=img=>{prods.push({id:"p"+Date.now(),kind:$("nt").value,pay:$("npay").value,name:n,detail:$("nd").value.trim(),items:$("nl").value.trim(),price:p,img:img||$("ni").value.trim()});save("prods",prods);drawAdm();toast("Agregado a la tienda")};
+const f=$("nf").files[0];f?shrink(f,mk,640,.75):mk("");return}
+if(d.del!==undefined){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Toca otra vez para borrar";return}delete cart[prods[d.del].id];prods.splice(d.del,1);save("prods",prods);drawAdm();return}
+if(d.bgset){const u=$("bgu").value.trim(),fl=$("bgf").files[0];if(fl)shrink(fl,x=>{bg=x;save("bg",bg);applyBg()},900,.65);else if(u){bg=u;save("bg",bg);applyBg()}else toast("Pon un enlace o elige una imagen");return}
+if(d.bgdel){bg="";save("bg","");applyBg();return}
+if(d.out){owner=false;save("owner",false);showCb();close();return}
+if(d.pin){const v=$("npin").value.trim();if(v.length<4){toast("Mínimo 4 caracteres");return}pin=v;save("pin",pin);toast("Clave cambiada");$("npin").value=""}};
+
+applyBg();showCb();drawLocs();drawShop();
+</script>
+</body>
+</html>
